@@ -1,1 +1,1 @@
-github the first see
+第一次使用git
