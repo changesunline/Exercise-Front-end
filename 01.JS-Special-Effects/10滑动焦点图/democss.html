@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .box{
+            width: 490px;
+            height: 170px;
+            padding: 5px;
+            border: 1px solid #cccccc;
+            margin: 200px auto;
+            /*overflow: hidden;*/
+        }
+        .inner{
+            width: 490px;
+            height: 170px;
+            overflow: hidden;
+            position: relative;
+        }
+        ul{
+            list-style: none;
+            width: 500%;
+            position: absolute;
+            left: 0;
+        }
+        li{
+             float: left;
+         }
+        .square{
+            position: absolute;
+            right: 10px;
+            bottom: 5px;
+        }
+        span{
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            font: 12px/16px 微软雅黑;
+            background-color: rgb(255, 255, 255);
+            border: 1px solid #cccccc;
+            margin: 4px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .current{
+            background-color: #ff8806;
+            color: #fff;
+        }
+    </style>
+
+    <script>
+        window.onload = function () {
+            var ul = document.getElementsByTagName("ul")[0];
+            var lis = ul.children;
+            var spans = document.getElementsByTagName("span");
+
+            for (var i=0; i<spans.length; i++){
+                spans[i].index = i;
+                spans[i].onmouseover = function () {
+                    for (var j=0; j<spans.length; j++){
+                        spans[j].className = "";
+                    }
+                    this.className = "current";
+
+                    animate(ul,-this.index*490);
+                }
+            }
+
+            function animate(ele,num) {
+                var speed = num > ele.offsetLeft ? 10 : -10;
+                clearInterval(ele.timer);
+                ele.timer = setInterval(function () {
+                    ele.style.left = ele.offsetLeft + speed + "px";
+                    var val = num - ele.offsetLeft;
+                    if (Math.abs(val) <= 10) {
+                        ele.style.left = num + "px";
+                        clearInterval(ele.timer);
+                    }
+                },10);
+            }
+
+//            function animate(ele,num) {
+//                clearInterval(ele.timer);
+//                var speed = num > ele.offsetLeft ? 10 : -10
+//                ele.timer = setInterval(function () {
+//                    var val = num - ele.offsetLeft;
+//                    ele.style.left = ele.offsetLeft + speed + "px";
+//                    if (Math.abs(val) <= 10) {
+//                        ele.style.left = num + "px";
+//                        clearInterval(ele.timer);
+//                    }
+//                },10);
+//            }
+        }
+    </script>
+</head>
+<body>
+    <div class="box">
+        <div class="inner">
+            <ul>
+                <li><img src="images/01.jpg" alt=""></li>
+                <li><img src="images/02.jpg" alt=""></li>
+                <li><img src="images/03.jpg" alt=""></li>
+                <li><img src="images/04.jpg" alt=""></li>
+                <li><img src="images/05.jpg" alt=""></li>
+            </ul>
+            <div class="square">
+                <span class="current">1</span>
+                <span>2</span>
+                <span>3</span>
+                <span>4</span>
+                <span>5</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
