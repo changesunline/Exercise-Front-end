@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            background-color: rgba(0,0,0,0.8);
+        }
+        .box{
+            width: 800px;
+            height: 42px;
+            background: #fff url("images/wifi.png") no-repeat right;
+            border-radius: 10px;
+            margin: 100px auto;
+            position: relative;
+        }
+        ul{
+            list-style: none;
+            position: absolute;
+            /*z-index: 2;*/
+        }
+        li{
+            float: left;
+            width: 83px;
+            height: 42px;
+            font: 500 16px/42px simsun;
+            text-align: center;
+            cursor: pointer;
+        }
+        span{
+            display: block;
+            width: 83px;
+            height: 42px;
+            background: url("images/cloud.gif") no-repeat;
+            position: absolute;
+        }
+    </style>
+
+    <script src="../animaterFn.js"></script>
+    <script>
+        window.onload = function () {
+            var box = document.getElementById("box");
+            var span = box.children[0];
+            var ul = box.children[1];
+            var lis = ul.children;
+            var count = 0;
+            
+            for (var i=0; i<lis.length; i++){
+                lis[i].onmouseover = function () {
+                    animateH(span,this.offsetLeft,15);
+                }
+                lis[i].onclick = function () {
+                    count = this.offsetLeft;
+                    animateH(span,this.offsetLeft,15);
+                }
+                lis[i].onmouseout = function () {
+                    animateH(span,count,15);
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="box" id="box">
+        <span></span>
+        <ul>
+            <li>首页新闻</li>
+            <li>活动策划</li>
+            <li>师资力量</li>
+            <li>企业文化</li>
+            <li>招聘信息</li>
+            <li>公司简介</li>
+            <li>上海校区</li>
+            <li>广州校区</li>
+            <li>北京校区</li>
+        </ul>
+    </div>
+</body>
+</html>
