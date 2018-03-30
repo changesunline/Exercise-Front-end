@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        img {
+            position: fixed;
+            bottom: 100px;
+            right: 50px;
+            cursor: pointer;
+            display: none;
+            /*border: 1px solid #000;*/
+        }
+        div {
+            width: 1210px;
+            margin: 100px auto;
+            text-align: center;
+            font: 500 26px/35px "simsun";
+            color: red;
+        }
+    </style>
+    <script src="animate.js"></script>
+    <script>
+        window.onload = function () {
+            //需求：被卷去的头部超过100显示小火箭，然后点击小火箭屏幕缓慢移动到最顶端。
+            //难点：我们以前是移动盒子，现在是移动屏幕，我们没有学过如何移动屏幕。
+            //      技术点：window.scrollTo(x,y);浏览器显示区域跳转到指定的坐标
+            //步骤：
+            var img = document.getElementsByTagName("img")[0];
+            window.onscroll = function () {
+                document.title = scroll().top;
+                if (scroll().top > 500){
+                    img.style.display = "block";
+                } else {
+                    img.style.display = "none";
+                }
+                step = scroll().top;
+            }
+
+            var timer = null;
+            var taget = 0;//目标位置
+            var step = 0;//显示区域自身所在位置
+            img.onclick = function () {
+                clearInterval(timer);
+                timer = setInterval(function () {
+                    var speed = (taget-step)/10;
+                    speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+                    step = step + speed;
+                    window.scrollTo(0,step);
+                    if (step === 0){
+                        clearInterval(timer);
+                    }
+
+                },25);
+
+            }
+
+            function animate(ele,target) {
+                clearInterval(ele.timer);
+                ele.timer = setInterval(function () {
+                    var step = (target - ele.offsetTop) / 10;
+                    step = step > 0 ? Math.ceil(step) : Math.floor(step);
+                    ele.style.top = ele.offsetTop + step + "px";
+                    console.log(1);
+                    if (Math.abs(target - ele.offsetTop) < Math.abs(step)) {
+                        ele.style.top = target + "px";
+                        clearInterval(ele.timer);
+                    }
+                }, 25);
+            }
+        }
+    </script>
+
+</head>
+<body>
+    <img src="images/Top.jpg"/>
+    <div>
+        我是最顶端.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+        风吹马尾千条线，雨打羊毛一片毡.....<br>
+
+
+    </div>
+</body>
+</html>
