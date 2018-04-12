@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {margin: 0;padding: 0;}
+        .box {
+            width: 350px;
+            height: 350px;
+            margin:100px;
+            border: 1px solid #ccc;
+            position: relative;
+        }
+        .big {
+            width: 400px;
+            height: 400px;
+            position: absolute;
+            top: 0;
+            left: 360px;
+            border: 1px solid #ccc;
+            overflow: hidden;
+            display: none;
+        }
+        .mask {
+            width: 175px;
+            height: 175px;
+            background: rgba(255, 255, 0, 0.4);
+            position: absolute;
+            top: 0;
+            left: 0;
+            cursor: move;
+            display: none;
+        }
+        .small {
+            position: relative;
+        }
+        /*.current{*/
+            /*display: hide;*/
+        /*}*/
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="small">
+        <img src="images/001.jpg" alt=""/>
+        <div class="mask"></div>
+    </div>
+    <div class="big">
+        <img src="images/0001.jpg" alt=""/>
+    </div>
+</div>
+
+<script src="animate.js"></script>
+<script>
+    var box = document.getElementsByClassName("box")[0];
+    var small = box.firstElementChild || box.firstChild;
+    var big = box.lastElementChild || box.lastChild;
+    var mask = small.lastElementChild || small.lastChild;
+    var imagmin = document.getElementsByTagName("img")[0];
+    var imagmax = document.getElementsByTagName("img")[1];
+
+    small.onmouseenter = function () {
+        show(mask);
+        show(big);
+    }
+    small.onmouseleave = function () {
+        hide(mask);
+        hide(big);
+    }
+    small.onmousemove = function (event) {
+        event = event || window.event;
+        var pagex = event.pageX || scroll().left + event.clientX;
+        var pagey = event.pageY || scroll().top + event.clientY;
+        var tagetx = pagex-box.offsetLeft-mask.offsetWidth/2;
+        var tagety = pagey-box.offsetTop-mask.offsetHeight/2;
+
+        if (tagetx<0){
+            tagetx = 0;
+            mask.style.left = tagetx + "px";
+        }
+        if (tagetx>small.offsetWidth-mask.offsetWidth){
+            tagetx = small.offsetWidth-mask.offsetWidth;
+            mask.style.left = tagetx + "px";
+        }
+        if (tagety<0){
+            tagety = 0;
+            mask.style.top = tagety + "px";
+        }
+        if (tagety>small.offsetHeight-mask.offsetHeight){
+            tagety = small.offsetHeight-mask.offsetHeight;
+            mask.style.top = tagety + "px";
+        }
+        mask.style.left = tagetx + "px";
+        mask.style.top = tagety + "px";
+
+
+        var x = (big.offsetWidth/mask.offsetWidth) * tagetx;
+        var y = (big.offsetHeight/mask.offsetHeight) * tagety;
+
+        imagmax.style.marginLeft = -x + "px";
+        imagmax.style.marginTop = -y + "px";
+    }
+</script>
+</body>
+</html>
