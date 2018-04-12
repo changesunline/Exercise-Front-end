@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box{
+            width: 400px;
+            height: 250px;
+            background-color: #b6d631;
+            text-align: center;
+            cursor: pointer;
+            font: 18px/30px simsun;
+            padding-top: 150px;
+            margin: 100px auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        鼠标在盒子中的横坐标为：100px <br>
+        鼠标在盒子中的纵坐标为：100px <br>
+    </div>
+
+    <script>
+        var box = document.getElementsByClassName("box")[0];
+        box.onmousemove = function (event) {
+            event = event || window.event;
+            var pageX = event.pageX || scroll().left + event.clientX;
+            var pageY = event.pageY || scroll().top + event.clientY;
+
+            var tagetx = pageX - this.offsetLeft;
+            var tagety = pageY - this.offsetTop;
+
+            this.innerHTML = "鼠标在盒子中的横坐标为：" +
+                tagetx + "px <br>鼠标在盒子中的纵坐标为：" + tagety + "px <br>";
+        }
+    </script>
+</body>
+</html>

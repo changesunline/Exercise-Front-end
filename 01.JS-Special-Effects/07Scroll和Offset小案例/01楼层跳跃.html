@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ol{
+            list-style: none;
+            position: fixed;
+            left: 30px;
+            top: 100px;
+
+        }
+        ol li{
+            width: 50px;
+            height: 50px;
+            border: 1px solid #f5f5dc;
+            text-align: center;
+            line-height: 50px;
+            margin-top: -1px;
+            cursor: pointer;
+        }
+        ul,body,html{
+            height: 100%;
+        }
+        ul{
+            width: 100%;
+            position: absolute;
+            text-align: center;
+        }
+        ul li{
+            list-style: none;
+            height: 100%;
+            font: 700 100px 微软雅黑;
+
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li>鞋子区域</li>
+        <li>袜子区域</li>
+        <li>裤子区域</li>
+        <li>裙子区域</li>
+        <li>帽子区域</li>
+    </ul>
+    <ol>
+        <li>鞋子</li>
+        <li>袜子</li>
+        <li>裤子</li>
+        <li>裙子</li>
+        <li>帽子</li>
+    </ol>
+    <script src="animate.js"></script>
+    <script>
+        //需求：点击ol中的li，屏幕滑动到对应的ul中的li的范围。
+        //思路：还是利用window.scrollTo();利用缓动动画原理实现屏幕滑动。
+        var ul = document.getElementsByTagName("ul")[0];
+        var ol = document.getElementsByTagName("ol")[0];
+        var ularr = ul.children;
+        var olarr = ol.children;
+        var colorarr = ["#b6d631","#42BAFF","#FFB9FD","#FFB00C","#DEB887"];
+        var timer = null;
+        var taget = 0;//目标位置
+        var step = 0;//当前位置
+        for (var i=0; i<olarr.length; i++){
+            olarr[i].style.backgroundColor = colorarr[i];
+            ularr[i].style.backgroundColor = colorarr[i];
+            olarr[i].index = i
+            olarr[i].onclick = function () {
+                clearInterval(timer);
+                taget = ularr[this.index].offsetTop;
+                timer = setInterval(function () {
+                    var speed = (taget-step)/10;
+                    speed = taget-step>0? Math.ceil(speed):Math.floor(speed);
+                    step = step + speed;
+                    window.scrollTo(0,step);
+                    if(Math.abs(taget-step)<Math.abs(speed)){
+                        window.scrollTo(0,taget);
+                        clearInterval(timer);
+                    }
+                },25);
+            }
+            window.onscroll = function () {
+                step = scroll().top;
+            }
+        }
+
+
+    </script>
+</body>
+</html>

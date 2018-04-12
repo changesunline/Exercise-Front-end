@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        img{
+            position: absolute;
+            cursor: pointer;
+            border: 1px solid #cccccc;
+        }
+    </style>
+</head>
+<body>
+    <img src="images/img.jpg" width="100px" alt="">
+    <script>
+        var img = document.getElementsByTagName("img")[0];
+        var tagetx = 0;
+        var tagety = 0;
+        var stepx = 0;
+        var stepy = 0;
+        var timer = null;
+        document.onclick = function (event) {
+            event = event || window.event;
+            clearInterval(timer);
+            tagetx = event.pageX - img.offsetWidth/2 || scroll().left + event.clientX - img.offsetWidth/2;
+            tagety = event.pageY - img.offsetHeight/2 || scroll().top + event.clientY - img.offsetHeight/2;
+            stepy = img.offsetTop;
+            stepx = img.offsetLeft;
+
+            timer = setInterval(function () {
+                var speedy = (tagety - stepy)/10;
+                speedy = tagety-stepy>0 ? Math.ceil(speedy):Math.floor(speedy);
+                stepy = stepy + speedy;
+                img.style.top = stepy + "px";
+
+                var speedx = (tagetx - stepx)/10;
+                speedx = tagetx-stepx>0 ? Math.ceil(speedx):Math.floor(speedx);
+                stepx = stepx + speedx;
+                img.style.left = stepx + "px";
+
+                if (Math.abs(tagety-stepy)<=Math.abs(speedy) && Math.abs(tagetx-stepx)<=Math.abs(speedx)){
+                    img.style.top = tagety + "px";
+                    img.style.left = tagetx + "px";
+                    clearInterval(timer);
+                }
+            },25);
+
+        }
+    </script>
+</body>
+</html>
