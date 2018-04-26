@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            height: 4000px;
+        }
+        .box{
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            left: 10px;
+            top: 40px;
+            background-color: #b6d631;
+        }
+    </style>
+</head>
+<body>
+    <button>向左移动400px</button>
+    <div class="box"></div>
+
+    <script src="jquery1.0.0.1.js"></script>
+    <script>
+        var btnArr = document.getElementsByTagName("button");
+        var div = document.getElementsByTagName("div")[0];
+
+        var json1 = {"top":200,"left":400,"width":400,"height":400}
+        var json2 = {"top":40,"left":10,"width":100,"height":100}
+//        btnArr[0].onclick = function () {
+//            animate(div,json1,function () {
+//                animate(div,json2);
+//            });
+//        }
+        btnArr[0].addEventListener("click",function(){animate(div,json1);},false);
+        btnArr[0].addEventListener("click",function(){animate(div,json2);},false);
+
+        function animate(ele,json,fn) {
+            clearInterval(ele.timer);
+            ele.timer = setInterval(function () {
+                var bool = true;
+                for(var k in json){
+                    var leader = parseInt(getStyle(ele,k)) || 0;
+                    var step = (json[k] - leader)/10;
+                    step = step>0?Math.ceil(step):Math.floor(step);
+                    leader = leader + step;
+                    ele.style[k] = leader + "px";
+                    if (Math.abs(json[k] - leader) > Math.abs(step)){
+                        bool = false;
+                    }
+                }
+                console.log(1);
+                if (bool) {
+                    clearInterval(ele.timer);
+                    if (fn){
+                        fn();
+                    }
+                }
+
+            },20);
+        }
+
+        function getStyle(ele,attr){
+            if (window.getComputedStyle){
+                return window.getComputedStyle(ele,null)[attr];
+            } else {
+                return ele.currentStyle[attr];
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            height: 4000px;
+        }
+        .box{
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            left: 10px;
+            top: 50px;
+            background-color: #b6d631;
+        }
+    </style>
+</head>
+<body>
+    <button>向左移动400px</button>
+    <div class="box"></div>
+
+    <script src="jquery1.0.0.1.js"></script>
+    <script>
+        var btnArr = document.getElementsByTagName("button");
+        var div = document.getElementsByTagName("div")[0];
+
+        btnArr[0].onclick = function () {
+            var json = {"top":200,"left":400,"width":400,"height":400}
+            animate(div,json);
+        }
+
+        function animate(ele,json) {
+            clearInterval(ele.timer);
+//            var bool = true;
+            ele.timer = setInterval(function () {
+                var bool = true;
+                for(var k in json){
+                    var leader = parseInt(getStyle(ele,k)) || 0;
+                    var step = (json[k] - leader)/10;
+                    step = step>0?Math.ceil(step):Math.floor(step);
+                    leader = leader + step;
+                    ele.style[k] = leader + "px";
+                    if (Math.abs(json[k] - leader) > Math.abs(step)){
+                        bool = false;
+                    }
+                }
+                console.log(1);
+                if (bool) {
+                    for (k in json){
+                        ele.style[k] = json[k] + "px";
+                    }
+                    clearInterval(ele.timer);
+                }
+
+            },20);
+        }
+
+        function getStyle(ele,attr){
+            if (window.getComputedStyle){
+                return window.getComputedStyle(ele,null)[attr];
+            } else {
+                return ele.currentStyle[attr];
+            }
+        }
+    </script>
+</body>
+</html>

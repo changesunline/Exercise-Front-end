@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+    <script src="jquery1.0.0.1.js"></script>
+    <script>
+        window.onresize = function() {
+            if (client().width>960){
+                document.body.style.backgroundColor = "#c6ff79";
+            } else if (client().width>640){
+                document.body.style.backgroundColor = "#56dfff";
+            } else {
+                document.body.style.backgroundColor = "#ff7fe5";
+            }
+        }
+    </script>
+</body>
+</html>
