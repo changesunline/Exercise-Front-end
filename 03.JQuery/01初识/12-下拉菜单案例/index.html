@@ -54,19 +54,20 @@
       //mouseover：鼠标经过事件
       //mouseout:鼠标离开事件
       
-      //mouseenter:鼠标进入事件
-      //mouseleave：鼠标离开事件
+      //mouseenter:鼠标进入事件（不发生冒泡）
+      //mouseleave：鼠标离开事件（不发生冒泡）
       
       var $li = $(".wrap>ul>li");
       
       //给li注册鼠标经过事件，让自己的ul显示出来
       $li.mouseenter(function () {
         //找到所有的儿子，并且还得是ul
-        $(this).children("ul").show();
+				//stop()方法是解除bug，在动画之前清理所有动画在执行
+        $(this).children("ul").stop().show();
       });
   
       $li.mouseleave(function () {
-        $(this).children("ul").hide();
+        $(this).children("ul").stop().hide();
       });
       
       
