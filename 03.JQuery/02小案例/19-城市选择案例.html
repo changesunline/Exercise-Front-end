@@ -55,11 +55,11 @@
     });
     
     $("#btn3").click(function () {
-      $("#src-city>option:selected").appendTo("#tar-city");
+      $("#src-city>option:selected").appendTo("#tar-city").attr("selected", false);
     });
   
     $("#btn4").click(function () {
-      $("#src-city").append($("#tar-city>option:selected"));
+      $("#src-city").append($("#tar-city>option:selected")).children("option:selected").attr("selected", false);
     });
   });
 
