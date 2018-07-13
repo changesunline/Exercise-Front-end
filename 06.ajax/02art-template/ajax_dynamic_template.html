@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="/chuanzhi/day50/lib/template-web.js"></script>
+	<style type="text/css">
+		table,tr,td{
+			padding: 0;
+
+		}
+		table{
+			width: 5000px;
+		}
+	</style>
+</head>
+<body>
+	<table id="table" border="1px"></table>
+	<script id="tlp" type="text/x-art-template">
+		{{each content}}
+			<tr>
+				{{each $value}}
+				<td>{{$value}}</td>
+				{{/each}}
+			</tr>
+		{{/each}}
+	</script>
+	<script type="text/javascript">
+		window.onload = function(){
+			var xhr = new XMLHttpRequest();
+			xhr.open('get','json.php');
+			xhr.send();
+			xhr.onreadystatechange = function () {
+				if (this.readyState !== 4) return;
+
+				var obj = JSON.parse(this.responseText);
+				var data = {content: obj.data};
+				// console.log(data);
+				var html = template("tlp", data);
+				console.log(html);
+				var table = document.getElementById("table");
+				table.innerHTML = html;
+			}
+		}
+	</script>
+</body>
+</html>
