@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+//====================================Version5========================================
+		function ajax(method,url,params,done) {
+			//第四个参数done为一个函数对象，也就是告诉ajax自己要做什么
+			var xhr = new XMLHttpRequest();
+
+			if (typeof params === "object") {
+				var temparr = [];
+				for (var key in params) {
+					var value = params[key];
+					temparr.push(key + "=" + value);
+				}
+				params = temparr.join("&");
+			}
+
+			if (/^get$/gi.test(method)) {
+				if (typeof params !== "undefined") {
+					url += "?" + params;
+				}
+			}
+			//第三个参数为true则为异步
+			xhr.open(method,url,true);
+
+			var data = null;
+			if (/^post$/gi.test(method)) {
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				data = params;
+			}
+
+			xhr.send(data);
+
+			xhr.onreadystatechange = function () {
+				// console.log(this.readyState);
+				if (this.readyState !== 4) return;
+				done(this.responseText);
+			}
+
+		}
+
+		var ondone = function (res) {
+			console.log("hahhahahha");
+			console.log(res);
+		}
+
+		ajax("get","time.php","",ondone);
+		// ajax("get","time.php",{id:1});
+		// ajax("post","time.php");
+		// ajax("post","time.php",{key1:"value1",key2:"value2"});
+
+//=============================Version2=====================================
+		// function ajax(method,url,params) {
+
+		// 	var xhr = new XMLHttpRequest();
+
+		// 	if (/^get$/gi.test(method))) {
+		// 		if (typeof params !== "undefined") {
+		// 			url += "?" + params;
+		// 		}
+		// 	}
+
+		// 	xhr.open(method,url);
+
+		// 	var data = null;
+		// 	if (/^post$/gi.test(method)) {
+		// 		xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+		// 		data = params;
+		// 	}
+			
+		// 	xhr.send(data);
+
+		// 	xhr.onreadystatechange = function () {
+		// 		if (this.readyState !== 4) return;
+		// 		console.log(this.responseText);
+		// 	}
+		// }
+
+//===============================Version3==================================================
+		// function ajax(method,url,params) {
+		// 	var xhr = new XMLHttpRequest();
+
+		// 	if (typeof params === "object") {
+		// 		var temparr = [];
+		// 		for (var key in params) {
+		// 			var value = params[key];
+		// 			temparr.push(key + "=" + value);
+		// 		}
+		// 		params = temparr.join("&");
+		// 	}
+
+		// 	if (/^get$/gi.test(method)) {
+		// 		if (typeof params !== "undefined") {
+		// 			url += "?" + params;
+		// 		}
+		// 	}
+		// 	xhr.open(method,url);
+
+		// 	var data = null;
+		// 	if (/^post$/gi.test(method)) {
+		// 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		// 		data = params;
+		// 	}
+		// 	xhr.send(data);
+
+		// 	xhr.onreadystatechange = function () {
+		// 		if (this.readyState !== 4) return;
+		// 		console.log(this.responseText);
+		// 	};
+		// }
+
+		// console.log(/^get$/gi.test("GE"));
+		// console.log(typeof (typeof /^get$/gi));
+		// console.log(typeof /^get$/gi === "object");
+		// console.log(typeof params);
+		
+		// ajax("get","time.php");
+		// ajax("get","time.php",{id:1});
+		// ajax("post","time.php");
+		// ajax("post","time.php",{key1:"value1",key2:"value2"});
+
+//==================================Version4==========================================
+		// function ajax(method,url,params) {
+		// 	var res = null;
+
+		// 	var xhr = new XMLHttpRequest();
+
+		// 	if (typeof params === "object") {
+		// 		var temparr = [];
+		// 		for (var key in params) {
+		// 			var value = params[key];
+		// 			temparr.push(key + "=" + value);
+		// 		}
+		// 		params = temparr.join("&");
+		// 	}
+
+		// 	if (/^get$/gi.test(method)) {
+		// 		if (typeof params !== "undefined") {
+		// 			url += "?" + params;
+		// 		}
+		// 	}
+		// 	//第三个参数为false则为同步,但同步模式已经废弃
+		// 	xhr.open(method,url,false);
+
+		// 	var data = null;
+		// 	if (/^post$/gi.test(method)) {
+		// 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		// 		data = params;
+		// 	}
+
+		// 	xhr.onreadystatechange = function () {
+		// 		// console.log(this.readyState);
+		// 		if (this.readyState !== 4) return;
+		// 		res = this.responseText;
+		// 	}
+
+		// 	xhr.send(data);
+
+		// 	return res;
+		// }
+
+		// console.log(ajax("get","time.php"));
+		// console.log(ajax("get","time.php",{id:1}));
+		// console.log(ajax("post","time.php"));
+		// console.log(ajax("post","time.php",{key1:"value1",key2:"value2"}));
+
+		
+	</script>
+</body>
+</html>
