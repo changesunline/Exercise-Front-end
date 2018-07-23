@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		.box{
+			width: 882px;
+			height: 86px;
+			margin: 20px auto;
+			background-color: #ddd;
+			overflow: hidden;
+			animation-play-state: running;
+			/*position: relative;*/
+		}
+		.box>ul{
+			width: 200%;
+			height: 86px;
+			list-style: none;
+			animation-name: move;
+			animation-duration: 7s;
+			animation-iteration-count: infinite;
+			animation-timing-function: linear;
+			animation-play-state: running;
+		}
+		.box:hover ul{
+			cursor: pointer;
+			animation-play-state: paused;
+		}
+		.box>ul>li{
+			width: 126px;
+			height: 86px;
+			float: left;
+		}
+		img{
+
+		}
+		@keyframes move{
+			from{
+				transform: translateX(0px);
+			}
+			to{
+				transform: translateX(-882px);
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<ul>
+			<li><img src="./images1/1.jpg" alt=""></li>
+			<li><img src="./images1/2.jpg" alt=""></li>
+			<li><img src="./images1/3.jpg" alt=""></li>
+			<li><img src="./images1/4.jpg" alt=""></li>
+			<li><img src="./images1/5.jpg" alt=""></li>
+			<li><img src="./images1/6.jpg" alt=""></li>
+			<li><img src="./images1/7.jpg" alt=""></li>
+			<li><img src="./images1/1.jpg" alt=""></li>
+			<li><img src="./images1/2.jpg" alt=""></li>
+			<li><img src="./images1/3.jpg" alt=""></li>
+			<li><img src="./images1/4.jpg" alt=""></li>
+			<li><img src="./images1/5.jpg" alt=""></li>
+			<li><img src="./images1/6.jpg" alt=""></li>
+			<li><img src="./images1/7.jpg" alt=""></li>
+		</ul>
+	</div>
+</body>
+</html>
