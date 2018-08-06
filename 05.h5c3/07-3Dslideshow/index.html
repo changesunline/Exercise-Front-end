@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>3DSlideShow</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.box{
+			position: relative;
+			width: 560px;
+			height: 300px;
+			margin: 100px auto;
+			/*overflow: hidden;*/
+		}
+		.box a{
+			position: absolute;
+			display: block;
+			width: 50px;
+			height: 50px;
+			text-align: center;
+			font-size: 50px;
+			line-height: 50px;
+			color: #fff;
+			top: 50%;
+			transform: translateY(-50%);
+			background-color: rgba(0,0,0,.3);
+			text-decoration: none;
+		}
+		.box .right{
+			right: 0;
+		}
+		.box ul{
+			list-style: none;
+			position: absolute;
+			top: 0;
+			/*overflow: hidden;*/
+		}
+		.box ul li{
+			/*position: absolute;*/
+			float: left;
+			width: 112px;
+			height: 300px;
+			position: relative;
+			transform-style: preserve-3d;
+			/*transform: rotate3d(1,1,0,-30deg);*/
+			/*transform-origin: center;*/
+			transition: transform .5s linear;
+			/*perspective: 500px;*/
+		}
+		.box ul li span{
+			position: absolute;
+			display: block;
+			width: 100%;
+			height: 100%;
+			transform-style: preserve-3d;
+			perspective-origin: center;
+		}
+		/*front*/
+		.box ul li span:nth-child(1){
+			background: url("image/1.jpg") no-repeat;
+			transform: translate3d(0,0,150px);
+		}
+		/*top*/
+		.box ul li span:nth-child(2){
+			background: url("image/2.jpg") no-repeat;
+			transform-origin: bottom;
+			transform: translate3d(0,-300px,150px) rotate3d(1,0,0,90deg);	
+		}
+		/*back*/
+		.box ul li span:nth-child(3){
+			background: url("image/3.jpg") no-repeat;
+			transform-origin: bottom;
+			transform: translate3d(0,-300px,-150px) rotate3d(1,0,0,180deg);				
+		}
+		/*bottom*/
+		.box ul li span:nth-child(4){
+			background: url("image/4.jpg") no-repeat;
+			transform: translate3d(0,150px,0) rotate3d(1,0,0,-90deg);
+		}
+		.box ul li:nth-child(1) span{}
+		.box ul li:nth-child(2) span{
+			background-position: -112px 0;
+		}
+		.box ul li:nth-child(3) span{
+			background-position: -224px 0;
+		}
+		.box ul li:nth-child(4) span{
+			background-position: -336px 0;
+		}
+		.box ul li:nth-child(5) span{
+			background-position: -448px 0;
+		}
+		/*因为是行内元素，必须转换成块元素，不然会有间隔*/
+		/*.box ul li img{
+			display: block;
+		}*/
+	</style>
+	<script type="text/javascript" src="jquery.min.js"></script>
+	<script type="text/javascript">
+		$(function () {
+			/*1.点击切换图片*/
+        /*定义一个索引*/
+        /*看第2张图 -90deg  看第4张图 90deg */
+        var index = 0;
+        /*开关*/
+        var flag = true;
+        /*2.点击左边的按钮 上一张*/
+        $('.left').on('click',function () {
+        	// 执行return之后的代码就不会再执行
+            if(!flag) return false;
+            flag = false;
+
+            index --;
+            console.log(index);
+            var angle = - index * 90;
+            $('li').css('transform','rotateX('+angle+'deg)').each(function (i,item) {
+                /*设置不同的延时*/
+                $(this).css('transition-delay',i*0.25+'s');
+            });
+        });
+        /*3.点击右边的按钮 下一张*/
+        $('.right').on('click',function () {
+        	// 执行return之后的代码就不会再执行
+            if(!flag) return false;
+            flag = false;
+
+            index ++;
+            console.log(index);
+            var angle = - index * 90;
+            $('li').css('transform','rotateX('+angle+'deg)').each(function (i,item) {
+                /*设置不同的延时*/
+                $(this).css('transition-delay',i*0.25+'s');
+            });
+        });
+        /*4.优化 重复点击的时候动画会层叠的执行  节流阀 */
+        $('li:last').on('transitionend',function () {
+            /*最后一部分张图片旋转完毕*/
+            flag = true;
+        });
+		});
+	</script>
+</head>
+<body>
+	<div class="box">
+		<ul>
+			<li>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+			</li>
+			<li>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+			</li>
+			<li>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+			</li>
+			<li>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+			</li>
+			<li>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+			</li>
+		</ul>
+		<a class="left" href="javascript:void(0);"><</a>
+		<a class="right" href="javascript:void(0);">></a>
+	</div>
+</body>
+</html>
