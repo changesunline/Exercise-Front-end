@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>折线图</title>
+	<style type="text/css">
+		canvas {
+            border: 1px solid #ccc;
+        }
+	</style>
+</head>
+<body>
+	<canvas width="600" height="400"></canvas>
+	<script type="text/javascript">
+		// 1、构造函数
+		var Graph = function (ctx) {
+			this.ctx = ctx || document.querySelector("canvas").getContext("2d");
+			this.canvasWidth = ctx.canvas.width;
+			this.canvasHeight = ctx.canvas.height;
+			this.gridSize = 10;
+			this.space = 20;
+			this.arrowSize = 10;
+			this.dotSize = 6;
+			this.x0 = this.space;
+			this.y0 = this.canvasHeight-this.space;
+		}
+		// 2、功能方法
+		// 2.0初始化方法
+		Graph.prototype.init = function (data) {
+			this.grid();
+			this.coordinate();
+			this.dots_line(data);
+		}
+		// 2.1绘制网格
+		Graph.prototype.grid = function () {
+			this.ctx.strokeStyle = "#ddd";
+			// X方向的线条
+			var xline = Math.floor(this.canvasHeight/this.gridSize);
+			for (var i = 0; i < xline; i++) {
+				this.ctx.beginPath();
+				this.ctx.moveTo(0,this.gridSize*i-0.5);
+				this.ctx.lineTo(this.canvasWidth,this.gridSize*i-0.5);
+				this.ctx.stroke();
+			}
+			// Y方向线条
+			var yline = Math.floor(this.canvasWidth/this.gridSize);
+			for (var i = 0; i < yline; i++) {
+				this.ctx.beginPath();
+				this.ctx.moveTo(this.gridSize*i-0.5,0);
+				this.ctx.lineTo(this.gridSize*i-0.5,this.canvasHeight);
+				this.ctx.stroke();
+			}
+		}
+		// 2.2绘制坐标轴
+		Graph.prototype.coordinate = function () {
+			this.ctx.strokeStyle = "#000";
+			// X轴
+			this.ctx.beginPath();
+			this.ctx.moveTo(this.x0, this.y0);
+			this.ctx.lineTo(this.canvasWidth-this.space, this.y0);
+			this.ctx.stroke();
+			this.ctx.lineTo(this.canvasWidth-this.space-this.gridSize, this.y0+this.gridSize/2);
+			this.ctx.lineTo(this.canvasWidth-this.space-this.gridSize, this.y0-this.gridSize/2);
+			this.ctx.lineTo(this.canvasWidth-this.space, this.y0);
+			this.ctx.fill();
+
+			// Y轴
+			this.ctx.beginPath();
+			this.ctx.moveTo(this.x0, this.y0);
+			this.ctx.lineTo(this.space, this.space);
+			this.ctx.stroke();
+			this.ctx.lineTo(this.space+this.gridSize/2, this.space+this.gridSize);
+			this.ctx.lineTo(this.space-this.gridSize/2, this.space+this.gridSize);
+			this.ctx.lineTo(this.space, this.space);
+			this.ctx.fill();
+		}
+		// 2.3绘制点、点连线
+		Graph.prototype.dots_line = function (data) {
+			var that = this;
+			var predotx = 0;
+			var predoty = 0;
+			data.forEach(function (item,index) {
+				that.ctx.strokeStyle = "#000";
+				dotx = that.x0+item.x;
+				doty = that.y0-item.y;
+
+				// 绘制点
+				that.ctx.beginPath();
+				that.ctx.moveTo(dotx+that.dotSize/2, doty-that.dotSize/2);
+				that.ctx.lineTo(dotx-that.dotSize/2, doty-that.dotSize/2);
+				that.ctx.lineTo(dotx-that.dotSize/2, doty+that.dotSize/2);
+				that.ctx.lineTo(dotx+that.dotSize/2, doty+that.dotSize/2);
+				that.ctx.lineTo(dotx+that.dotSize/2, doty-that.dotSize/2);
+				that.ctx.stroke();
+				that.ctx.fill();
+
+				// 连线
+				if (index == 0) {
+					that.ctx.beginPath();
+					that.ctx.moveTo(that.x0, that.y0);
+					that.ctx.lineTo(dotx, doty);
+					that,ctx.stroke();
+				} else {
+					that.ctx.beginPath();
+					that.ctx.moveTo(predotx, predoty);
+					that.ctx.lineTo(dotx, doty);
+					that,ctx.stroke();
+				}
+
+				// 记录前一个点
+				predotx = dotx;
+				predoty = doty;
+			});
+
+		}
+		
+		// 3、对象初始化
+		// 3.1点坐标
+		var data = [
+	        {x:100,y:120},
+	        {x:200,y:160},
+	        {x:300,y:240},
+	        {x:400,y:120},
+	        {x:500,y:80}
+	    ];
+
+	    // 3.2创建对象
+	    var ctx = document.querySelector("canvas").getContext("2d");
+	    var graph = new Graph(ctx);
+	    graph.init(data);
+	</script>
+</body>
+</html>
