@@ -91,7 +91,8 @@
 				that.ctx.lineTo(dotx-that.dotSize/2, doty+that.dotSize/2);
 				that.ctx.lineTo(dotx+that.dotSize/2, doty+that.dotSize/2);
 				that.ctx.lineTo(dotx+that.dotSize/2, doty-that.dotSize/2);
-				that.ctx.stroke();
+				// that.ctx.stroke();
+				that.ctx.closePath();
 				that.ctx.fill();
 
 				// 连线
