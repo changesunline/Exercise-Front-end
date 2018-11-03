@@ -1,0 +1,28 @@
+@charset "UTF-8";
+.sn_nav {
+  width: 100%;
+  padding: 0.25rem;
+}
+.sn_nav ul {
+  width: 100%;
+}
+.sn_nav ul li {
+  width: 20%;
+  float: left;
+  margin-bottom: 0.15rem;
+}
+.sn_nav ul li a {
+  display: block;
+}
+.sn_nav ul li a img {
+  display: block;
+  width: 0.8rem;
+  height: 0.8rem;
+  margin: 0 auto;
+}
+.sn_nav ul li a p {
+  text-align: center;
+  font-size: 0.2rem;
+  padding: 0.05rem;
+  color: #666;
+}

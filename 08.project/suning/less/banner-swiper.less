@@ -1,0 +1,31 @@
+@import "variables";
+.swiper-container img{
+  width: 100%;
+  display: block;
+}
+.swiper-pagination {
+  position: absolute;
+  text-align: right;
+  padding-right: 30rem/@baseFontSize;
+  -webkit-transition: 300ms;
+  -moz-transition: 300ms;
+  -o-transition: 300ms;
+  transition: 300ms;
+  -webkit-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  z-index: 10;
+}
+.swiper-pagination-bullet {
+  width: 12rem/@baseFontSize;
+  height: 12rem/@baseFontSize;
+  display: inline-block;
+  border-radius: 50%;
+  background: #fff;
+  opacity: 1;
+}
+.swiper-pagination-bullet-active {
+  opacity: 1;
+  background: @mainColor;
+}
